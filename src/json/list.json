@@ -1,0 +1,51 @@
+[
+    {
+        "id":1,
+        "personal":{
+            "img":"profile.png",
+            "name":"name",
+            "surname":"surname",
+            "department":"department",
+            "nbh":"nbh",
+            "prefix":"prefix",
+            "phone":"phone"
+        },
+        "experience":{
+            "occs":[
+                ["occ","exp"],
+                ["subOcc","exp"],
+                ["subOcc1","exp"]
+            ],
+            "jobs":[
+                {
+                    "occ":"occ",
+                    "list":[
+                        ["name","price","desc"],
+                        ["name1","price1","desc1"],
+                        ["name2","price2","desc2"]
+                    ]
+                },
+                {
+                    "occ":"subOcc",
+                    "list":[
+                        ["name","price","desc"],
+                        ["name1","price1","desc1"]
+                    ]
+                }
+            ],
+            "imgs":[
+                ["preview.png", "title", "desc"],
+                ["preview.png", "title1", ""],
+                ["preview.png", "", "desc2"],
+                ["preview.png", "", ""],
+                ["preview.png", "title4", "desc4"]
+            ]
+        },
+        "community":{
+            "values":[
+                ["user", "review", "comment"],
+                ["user", "review", "comment"]
+            ]
+        }
+    }
+]
