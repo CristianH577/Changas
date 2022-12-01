@@ -18,3 +18,18 @@
     justify-content: center;
     align-items: center;
 }
+
+svg:hover{
+  transform: scale(1.1);
+}
+
+form{
+  max-width: 800px;
+}
+
+.ligth path{
+  stroke: black;
+}
+.dark path{
+  stroke: white;
+}

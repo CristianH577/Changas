@@ -1,44 +1,54 @@
 import { Form } from "react-bootstrap";
+import SelectExp from "../../../components/select_exp";
+import SelectLocation from "../../../components/select_location";
+import SelectOcc from "../../../components/select_occ";
 
-function Filters() {
+function Filters(props) {
     return(
-        <aside className="w-25 me-1">
-
-            <Form.Select aria-label="Default select example" id="filter3" className="mb-2">
-                <option>Ordenar</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+        <div>
+            <Form.Select 
+                aria-label="Ordenar por" 
+                name="orderBy" 
+                className="mb-2" 
+                onChange={(e) => props.onChange(e)}
+            >
+                <option value="">Ordenar</option>
+                <option value="latest">Mas recientes</option>
+                <option value="oldest">Mas antiguos</option>
+                <option value="occ">Oficio</option>
+                <option value="exp">Experiencia</option>
+                <option value="department">Departamento</option>
+                <option value="ngb">Municipalidad</option>
             </Form.Select>
-
-            <Form.Select aria-label="Default select example" id="filter" className="mb-2">
-                <option>Oficio</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            
+            <Form.Select 
+                aria-label="Busco" 
+                name="want" 
+                className="mb-2" 
+                onChange={(e) => props.onChange(e)}
+            >
+                <option value="">Busco</option>
+                <option value="work">Trabajar</option>
+                <option value="employ">Emplear</option>
             </Form.Select>
+            
+            <SelectOcc 
+                className={"mb-2"} 
+                onChange={props.onChange} 
+                name={"occ"}
+            />
 
-            <Form.Select aria-label="Default select example" id="filter2" className="mb-2">
-                <option>Exp</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </Form.Select>
+            <SelectExp 
+                className={"mb-2"} 
+                onChange={props.onChange} 
+            />
 
-            <Form.Select aria-label="Default select example" id="filter3" className="mb-2">
-                <option>Departamento</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </Form.Select>
-
-            <Form.Select aria-label="Default select example" id="filter3" className="mb-2">
-                <option>Barrio</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </Form.Select>
-        </aside>
+            <SelectLocation 
+                onChange={props.onChange} 
+                onChangeDpt={props.onChangeDpt} 
+                onChangeNgb={props.onChangeNgb} 
+            />
+        </div>
     );
 }
 

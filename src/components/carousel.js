@@ -5,7 +5,7 @@ function CarouselConstruct(props) {
           <Carousel.Item key={idx}>
                <img
                className="d-block w-100"
-               src={require(`../../assets/imgs/${img[0]}`)}
+               src={require(`../assets/imgs/${img[0]}`)}
                alt="First slide"
                />
                <Carousel.Caption>
@@ -16,7 +16,7 @@ function CarouselConstruct(props) {
      )
 
      return(
-     <Carousel>
+     <Carousel fade interval={null}>
           {items}
      </Carousel>
      );

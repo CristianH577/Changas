@@ -12,7 +12,7 @@ function CardData(props) {
         {/* <!-- Necesito img: original, 150/300  --> */}
           <div className="row mb-2">
               <article className="col-3">
-                  <img src={require(`../../assets/imgs/${props.personal.img}`)} alt="alt" className="img-thumbnail" />
+                  <img src={require(`../assets/imgs/${props.personal.img}`)} alt="alt" className="img-thumbnail" />
               </article>
               <article className="col-9">
                   <ul className="list-group list-group-flush">

@@ -4,22 +4,26 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import { IconContext } from "react-icons";
 import { GrConfigure } from 'react-icons/gr';
+import { BsMoon, BsSun } from 'react-icons/bs';
+import { useEffect } from 'react';
 
-function Config() {
+function Config({mode, setMode}) {
   const [show, setShow] = useState(false);
+  const [checked, setChecked] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  useEffect(() => {
+    //checked ? setMode(["dark", "white"]) : setMode(["ligth", "black"])
+  }, [])
 
   return (
     <>
       <button className='border-0 bg-transparent position-absolute end-0 m-1'>
         <IconContext.Provider value={{ size: "1.5em" }}>
-            <GrConfigure onClick={handleShow} />
+            <GrConfigure onClick={() => setShow(true)} className={mode[0]} />
         </IconContext.Provider>
       </button>
 
-      <Offcanvas show={show} onHide={handleClose} placement="end">
+      <Offcanvas show={show} onHide={() => setShow(false)} placement="end">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Configuraciones</Offcanvas.Title>
         </Offcanvas.Header>
@@ -38,13 +42,25 @@ function Config() {
                 <option value="3">Three</option>
             </Form.Select>
 
-            <Form.Check 
+            <div className="mt-2 d-flex justify-content-end">
+              <IconContext.Provider value={{ size: "1.5em" }}>
+                <BsSun className="m-1" />
+              </IconContext.Provider>
+              <Form.Check 
                 reverse
                 type="switch"
-                id="custom-switch"
-                label="Modo Oscuro"
-                className="mt-2"
-            />
+                className="my-1 d-flex justify-content-center"
+                checked={checked}
+                onChange={(e) => {
+                  setChecked(!checked)
+                  !checked ? setMode(["dark", "white"]) : setMode(["ligth", "black"])
+                }}
+              />
+              <IconContext.Provider value={{ size: "1.4em" }}>
+                <BsMoon className="m-1" />
+              </IconContext.Provider>
+            </div>
+
         </Offcanvas.Body>
       </Offcanvas>
     </>

@@ -1,0 +1,199 @@
+[
+    {
+        "department": "Burruyacú",
+        "municipalities": [
+            "Burruyacú",
+            "El Chañar",
+            "El Naranjo y El Sunchal",
+            "El Puestito",
+            "El Timbó",
+            "Gobernador Garmendia",
+            "Gobernador Piedrabuena",
+            "La Ramada y La Cruz",
+            "Padre Monti",
+            "Siete de Abril",
+            "Villa Benjamín Araoz"
+        ]
+    },
+    {
+        "department": "Chicligasta",
+        "municipalities": [
+            "Concepción",
+            "Alpachiri y El Molino",
+            "Alto Verde y Los Gucheas",
+            "Arcadia",
+            "Gastona y Belicha",
+            "La Trinidad",
+            "Medinas"
+        ]
+    },
+    {
+        "department": "Cruz Alta",
+        "municipalities": [
+            "Banda del Río Salí",
+            "Alderetes",
+            "Alderetes",
+            "Delfín Gallo",
+            "El Bracho y El Cevilar",
+            "El Naranjito",
+            "La Florida y Luisiana",
+            "Las Cejas",
+            "Los Bulacio y Los Villagra",
+            "Los Pereyra",
+            "Los Pérez",
+            "Los Ralos",
+            "Ranchillos y San Miguel",
+            "San Andrés"
+        ]
+    },
+    {
+        "department": "Famaillá",
+        "municipalities": [
+            "Famaillá"
+        ]
+    },
+    {
+        "department": "Graneros",
+        "municipalities": [
+            "Graneros",
+            "Lamadrid",
+            "Taco Ralo"
+        ]
+    },
+    {
+        "department": "Juan Bautista Alberdi",
+        "municipalities": [
+            "Juan Bautista Alberdi",
+            "Escaba",
+            "Villa Belgrano"
+        ]
+    },
+    {
+        "department": "La Cocha",
+        "municipalities": [
+            "La Cocha",
+            "El Sacrificio",
+            "Huasa Pampa",
+            "Rumi Punco",
+            "San Ignacio",
+            "San José de la Cocha",
+            "Yánima"
+        ]
+    },
+    {
+        "department": "Leales",
+        "municipalities": [
+            "Bella Vista",
+            "Agua Dulce y La Soledad",
+            "El Mojón",
+            "Esquina y Mancopa",
+            "Estación Araox y Tacanas",
+            "Las Talas",
+            "Los Gómez",
+            "Los Puestos",
+            "Manuel García Fernández",
+            "Quilmes y Los Sueldos",
+            "Río Colorado",
+            "Santa Rosa de Leales",
+            "Villa de Leales"
+        ]
+    },
+    {
+        "department": "Lules",
+        "municipalities": [
+            "Lules",
+            "El Manantial",
+            "San Felipe y Santa Bárbara",
+            "San Pablo y Villa Nougués"
+        ]
+    },
+    {
+        "department": "Monteros",
+        "municipalities": [
+            "Monteros",
+            "Acheral",
+            "Amberes",
+            "Capitán Cáceres",
+            "El Cercado",
+            "Los Sosas",
+            "Río Seco",
+            "Santa Lucía",
+            "Santa Rosa y Los Rojo",
+            "Sargento Moya",
+            "Soldado Maldonado",
+            "Teniente Berdina",
+            "Villa Quinteros"
+        ]
+    },
+    {
+        "department": "Río Chico",
+        "municipalities": [
+            "Aguilares",
+            "El Polear",
+            "Los Sarmientos y La Tipa",
+            "Monte Bello",
+            "Santa Ana"
+        ]
+    },
+    {
+        "department": "S.M. de Tucuman",
+        "municipalities": [
+            "S.M. de Tucuman"
+        ]
+    },
+    {
+        "department": "Simoca",
+        "municipalities": [
+            "Simoca",
+            "Atahona",
+            "Buena Vista",
+            "Ciudacita",
+            "Manuela Pedraza",
+            "Monteagudo",
+            "Pampa Mayo",
+            "Río Chico y Nueva Trinidad",
+            "San Pedro y San Antonio",
+            "Santa Cruz y La Tuna",
+            "Villa Chigligasta",
+            "Yerba Buena"
+        ]
+    },
+    {
+        "department": "Tafí del Valle",
+        "municipalities": [
+            "Tafí del Valle",
+            "Amaichá del Valle",
+            "Colalao del Valle",
+            "El Mollar"
+        ]
+    },
+    {
+        "department": "Tafí Viejo",
+        "municipalities": [
+            "Tafí Viejo",
+            "Anca Juli",
+            "Choromoro",
+            "El Cadillal",
+            "La Esperanza",
+            "Las Talitas",
+            "Los Nogales",
+            "Raco"
+        ]
+    },
+    {
+        "department": "Trancas",
+        "municipalities": [
+            "Trancas",
+            "San Pedro de Colalao",
+            "Tapia"
+        ]
+    },
+    {
+        "department": "Yerba Buena",
+        "municipalities": [
+            "Yerba Buena",
+            "Cevil Redondo",
+            "San Javier"
+        ]
+    }
+]

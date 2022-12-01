@@ -2,58 +2,155 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import Occupation from "./components/occupation";
-import Job from "./components/job";
+import occsList from "../../../../json/occsList.json";
 
-function Experience() {
-    return (
-      <div>
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import Jobs from './components/jobs';
+import FilesImg from '../../../../components/files_img';
 
+function Experience({show, occs, setOccs, jobs, setJobs, updateData}) {
+
+  /* */
+  const addOcc = () => {
+    const newOcc = {
+      id: uuidv4(),
+      occ: "",
+      exp: ""
+    }
+    const newOccs = [...occs, newOcc]
+    setOccs(newOccs)
+    updateDisbled()
+  }
+
+  const deleteOcc = (id) => {
+    const newOccs = occs.filter(occ => occ.id !== id)
+    if(setOccs(newOccs)) updateDisbled()
+  }
+
+  const updateOcc = (id, e) => {
+    const dataset = e.target.dataset
+    const value = e.target.value
+
+    occs.forEach((occ) => {
+      if(occ.id === id) {
+        occ[dataset.type] = value
+      }
+    })
+
+    if(dataset.type === 'occ') updateDisbled()
+
+    console.log(occs)
+  }
+
+  /* */
+  const addJob = (occ, category) => {
+    const newJob = {
+      id: uuidv4(),
+      occ: occ,
+      category: category,
+      name: "",
+      price: "",
+      description: "", 
+      imgs: []
+    }
+
+    const newJobs = [...jobs, newJob]
+    setJobs(newJobs)
+
+    console.log(jobs)
+  }
+  const deleteJob = (id) => {
+    const newJobs = jobs.filter(job => job.id !== id)
+    setJobs(newJobs)
+  }
+  const updateJob = (id, e) => {
+    const name = e.target.dataset.type
+    const value = e.target.value
+
+    jobs.forEach((job) => {
+      if(job.id === id) {
+        job[name] = value
+      }
+    })
+  }
+
+  /* */
+  const [disabled, setDisabled] = useState({})
+  const updateDisbled = () => {
+    console.log("ejecuto updateDisbled")
+    var newDisabled = {}
+    occsList.forEach((occ) => 
+      newDisabled[occ] = false
+    )
+    occs.forEach((occ) => 
+      newDisabled[occ.occ] = true
+    )
+    setDisabled(newDisabled)
+  }
+
+  return (
+    <fieldset disabled={!show} className={show ? null : 'd-none'}>
+      <fieldset className="mb-3 p-2 border border-info rounded">
+        <legend className="mx-3 px-1" style={{float: "unset", width: "unset"}}>Oficios</legend>
+        
         <div className="mb-3">
-          <Form.Label>Oficios</Form.Label>
-          <Occupation id="occ" />
+          <Occupation 
+            id="main"
+            updateOcc={updateOcc}
+            disabled={disabled}
+          />
         </div>
 
         <div className="mb-3">
           <Form.Label>Suboficios</Form.Label>
-          <Occupation id="subOcc-select" />
-          <Button variant="info" type="button">
-            +
-          </Button>
-        </div>
+          {
+            occs.map((occ) =>
+              occ.id !== "main" &&
+              <Occupation
+                key={occ.id}
+                id={occ.id}
+                deleteOcc={deleteOcc}
+                updateOcc={updateOcc}
+                disabled={disabled}
+              />
+            )
+          }
 
-        <div className="mb-3">
-          <Form.Label>Muestras</Form.Label>
-          <Form.Control type="file" multiple />
+          {
+            occs.length < 4 &&
+            <Button variant="info" type="button" className="m-1" onClick={addOcc}>
+              +
+            </Button>
+          }
         </div>
+      </fieldset>
 
-        <div className="mb-3">
-          <Form.Label>Trabajos de oficio</Form.Label>
-          <Job id="occ-job-" index="" />
-          <Button variant="info" type="button">
-            +
-          </Button>
-        </div>
+      {
+        occs.map((occ) =>
+          occ.occ !== "" &&
+          <Jobs 
+            key={occ.id}
+            jobs={jobs}
+            occ={occ.occ}
+            category={occ.id === "main" ? 0 : 1}
 
-        <div className="mb-3">
-          <Form.Label>Trabajos de suboficio</Form.Label>
-          <Job className="subjob" id="subOcc-job-" index="" />
-          <Button variant="info" type="button">
-            +
-          </Button>
-        </div>
+            addJob={addJob}
+            deleteJob={deleteJob}
+            updateJob={updateJob}
+          />
+        )
+      }
 
-        <div className="d-flex justify-content-end">
-          <Button variant="secondary" type="button" className="me-2">
-            Anterior
-          </Button>
-          <Button variant="primary" type="submit" className="me-2">
-            Enviar
-          </Button>
-        </div>
+      <FilesImg 
+        name={'jobsExamples'}
+        onChange={updateData}
+        ariaLabel={"Imagenes de muestra"}
+        max={10}
+      />
 
-      </div>
-    );
-  }
+    </fieldset>
+  );
+}
   
-  export default Experience;
-  
+export default Experience;

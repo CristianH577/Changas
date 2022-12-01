@@ -1,60 +1,35 @@
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { InputGroup } from 'react-bootstrap';
+import SelectLocation from '../../../components/select_location';
 
-function Personal() {
-    return (
-      <div>
-        <div className="mb-3 row">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Group className="col-6" controlId="name">
-            <Form.Control type="text" placeholder="Nombre" />
-          </Form.Group>
-          <Form.Group className="col-6" controlId="surname">
-            <Form.Control type="text" placeholder="Apellido" />
-          </Form.Group>
-        </div>
-
-        <div className="mb-3">
-          <Form.Label>Localidad</Form.Label>
-          <Form.Group controlId="department">
-            <Form.Select aria-label="Default select example">
-                <option>Departamento</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </Form.Select>
-          </Form.Group>
-          <Form.Group controlId="ngb">
-            <Form.Select aria-label="Default select example" className="mt-1">
-                <option>Barrio</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </Form.Select>
-          </Form.Group>
-        </div>
-
-        <div className="mb-3 row">
-          <Form.Label>Telefono</Form.Label>
-          <Form.Group className="col-4" controlId="prefix">
-            <Form.Control type="number" placeholder="Prefijo(381)" />
-          </Form.Group>
-          <Form.Group className="col-8" controlId="number">
-            <Form.Control type="number" placeholder="Numero(697 0498)" />
-          </Form.Group>
-        </div>
-
-        <div className="d-flex justify-content-end">
-          <Button variant="secondary" type="button" className="me-2">
-            Anterior
-          </Button>
-          <Button variant="primary" type="button">
-            Siguiente
-          </Button>
-        </div>
+function Personal(props) {
+  return (
+    <fieldset disabled={!props.show} className={props.show ? null : 'd-none'}>
+      <div className="mb-3 row">
+        <Form.Label>Nombre*</Form.Label>
+        <InputGroup>
+            <Form.Control type="text" placeholder="Nombre" name="cognomen" onChange={(e) => props.updateData(e)} required />
+            <Form.Control type="text" placeholder="Apellido" name="surname" onChange={(e) => props.updateData(e)} required />
+        </InputGroup>
       </div>
-    );
-  }
+
+      <SelectLocation 
+        className="mb-3"
+        label='Localidad*'
+        required={true}
+        onChange={props.updateData}
+      />
+      
+      <div className="mb-3">
+        <Form.Label>Telefono*</Form.Label>
+        <InputGroup>
+          <Form.Control type="number" aria-label="Prefijo" name="prefix" placeholder="(381)" className="w-25" onChange={(e) => props.updateData(e)} required />
+          <Form.Control type="number" aria-label="Numero" name="phone" placeholder="(697 0498)" className="w-75" onChange={(e) => props.updateData(e)} required />
+        </InputGroup>
+      </div>
+    </fieldset>
+  );
+}
   
   export default Personal;
   

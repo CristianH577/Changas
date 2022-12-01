@@ -1,8 +1,8 @@
 import list from "../../json/list.json";
-import CardData from "../../components/common/card_data";
-import CarouselConstruct from "../../components/common/carousel";
-import ListPrices from "../../components/common/list_prices";
-import Reviews from "../../components/common/reviews";
+import CardData from "../../components/card_data";
+import CarouselConstruct from "../../components/carousel";
+import ListPrices from "../../components/list_prices";
+import Reviews from "../../components/reviews";
 
 function Profile() {
 
