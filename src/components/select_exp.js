@@ -8,7 +8,6 @@ function SelectExp(props) {
 
   return(
     <Form.Select 
-      aria-label="Experiencia" 
       name="exp"
       data-type="exp"
       required={props.required ? true : false}

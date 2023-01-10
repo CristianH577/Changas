@@ -8,8 +8,11 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Jobs from './components/jobs';
 import FilesImg from '../../../../components/files_img';
+import { useContext } from 'react';
+import { configContext } from '../../../../context/config_context';
 
-function Experience({show, occs, setOccs, jobs, setJobs, updateData}) {
+function Experience(props) {
+  const config = useContext(configContext)
 
   /* */
   const addOcc = () => {
@@ -18,21 +21,21 @@ function Experience({show, occs, setOccs, jobs, setJobs, updateData}) {
       occ: "",
       exp: ""
     }
-    const newOccs = [...occs, newOcc]
-    setOccs(newOccs)
+    const newOccs = [...props.occs, newOcc]
+    props.setOccs(newOccs)
     updateDisbled()
   }
 
   const deleteOcc = (id) => {
-    const newOccs = occs.filter(occ => occ.id !== id)
-    if(setOccs(newOccs)) updateDisbled()
+    const newOccs = props.occs.filter(occ => occ.id !== id)
+    if(props.setOccs(newOccs)) updateDisbled()
   }
 
   const updateOcc = (id, e) => {
     const dataset = e.target.dataset
     const value = e.target.value
 
-    occs.forEach((occ) => {
+    props.occs.forEach((occ) => {
       if(occ.id === id) {
         occ[dataset.type] = value
       }
@@ -40,7 +43,7 @@ function Experience({show, occs, setOccs, jobs, setJobs, updateData}) {
 
     if(dataset.type === 'occ') updateDisbled()
 
-    console.log(occs)
+    console.log(props.occs)
   }
 
   /* */
@@ -55,20 +58,20 @@ function Experience({show, occs, setOccs, jobs, setJobs, updateData}) {
       imgs: []
     }
 
-    const newJobs = [...jobs, newJob]
-    setJobs(newJobs)
+    const newJobs = [...props.jobs, newJob]
+    props.setJobs(newJobs)
 
-    console.log(jobs)
+    console.log(props.jobs)
   }
   const deleteJob = (id) => {
-    const newJobs = jobs.filter(job => job.id !== id)
-    setJobs(newJobs)
+    const newJobs = props.jobs.filter(job => job.id !== id)
+    props.setJobs(newJobs)
   }
   const updateJob = (id, e) => {
     const name = e.target.dataset.type
     const value = e.target.value
 
-    jobs.forEach((job) => {
+    props.jobs.forEach((job) => {
       if(job.id === id) {
         job[name] = value
       }
@@ -78,21 +81,22 @@ function Experience({show, occs, setOccs, jobs, setJobs, updateData}) {
   /* */
   const [disabled, setDisabled] = useState({})
   const updateDisbled = () => {
-    console.log("ejecuto updateDisbled")
     var newDisabled = {}
     occsList.forEach((occ) => 
       newDisabled[occ] = false
     )
-    occs.forEach((occ) => 
+    props.occs.forEach((occ) => 
       newDisabled[occ.occ] = true
     )
     setDisabled(newDisabled)
   }
 
   return (
-    <fieldset disabled={!show} className={show ? null : 'd-none'}>
-      <fieldset className="mb-3 p-2 border border-info rounded">
-        <legend className="mx-3 px-1" style={{float: "unset", width: "unset"}}>Oficios</legend>
+    <fieldset disabled={props.disabled} className={props.class}>
+      <legend className={props.styleLegend} style={{float: "unset", width: "unset"}}>Experiencia</legend>
+
+      <fieldset className={props.styleFieldset}>
+        <legend className={props.styleLegend} style={{float: "unset", width: "unset"}}>{config.text.signup.occs}</legend>
         
         <div className="mb-3">
           <Occupation 
@@ -103,9 +107,9 @@ function Experience({show, occs, setOccs, jobs, setJobs, updateData}) {
         </div>
 
         <div className="mb-3">
-          <Form.Label>Suboficios</Form.Label>
+          <Form.Label>{config.text.signup.suboccs}</Form.Label>
           {
-            occs.map((occ) =>
+            props.occs.map((occ) =>
               occ.id !== "main" &&
               <Occupation
                 key={occ.id}
@@ -118,8 +122,8 @@ function Experience({show, occs, setOccs, jobs, setJobs, updateData}) {
           }
 
           {
-            occs.length < 4 &&
-            <Button variant="info" type="button" className="m-1" onClick={addOcc}>
+            props.occs.length < 4 &&
+            <Button variant="success" type="button" className="m-1" onClick={addOcc}>
               +
             </Button>
           }
@@ -127,13 +131,15 @@ function Experience({show, occs, setOccs, jobs, setJobs, updateData}) {
       </fieldset>
 
       {
-        occs.map((occ) =>
+        props.occs.map((occ) =>
           occ.occ !== "" &&
           <Jobs 
             key={occ.id}
-            jobs={jobs}
+            jobs={props.jobs}
             occ={occ.occ}
             category={occ.id === "main" ? 0 : 1}
+            styleLegend={props.styleLegend}
+            styleFieldset={props.styleFieldset}
 
             addJob={addJob}
             deleteJob={deleteJob}
@@ -144,8 +150,7 @@ function Experience({show, occs, setOccs, jobs, setJobs, updateData}) {
 
       <FilesImg 
         name={'jobsExamples'}
-        onChange={updateData}
-        ariaLabel={"Imagenes de muestra"}
+        onChange={props.updateData}
         max={10}
       />
 

@@ -1,63 +1,109 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState, useEffect, useContext } from 'react';
+
 import { Form } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import { IconContext } from "react-icons";
-import { GrConfigure } from 'react-icons/gr';
-import { BsMoon, BsSun } from 'react-icons/bs';
-import { useEffect } from 'react';
+import { BsMoon, BsSun, BsGear } from 'react-icons/bs';
 
-function Config({mode, setMode}) {
-  const [show, setShow] = useState(false);
-  const [checked, setChecked] = useState(false);
+import { configContext } from '../../../../../context/config_context'
+import Cookies from "universal-cookie";
+
+function Config() {
+  const config = useContext(configContext)
+  const cookies = new Cookies()
+
+  const [show, setShow] = useState(false)
+  const [checked, setChecked] = useState(false)
+
+  const dark = ['dark', 'white', 'light', 'black']
+  const light = ['light', 'black', 'dark', 'white']
+
+  const changeStyle = (bool) => {
+    switch (bool) {
+      case true:
+        setChecked(true)
+        config.style.set(dark)
+        cookies.set('style', 'dark', { path: '/' })
+        break;
+      case false:
+        setChecked(false)
+        config.style.set(light)
+        cookies.remove('style', { path: '/' })
+        break;
+      default:
+        setChecked(!checked)
+        if(checked){
+          config.style.set(light)
+          cookies.remove('style', { path: '/' })
+        }else{
+          config.style.set(dark) 
+          cookies.set('style', 'dark', { path: '/' })
+        }
+        break;
+    }
+  }
 
   useEffect(() => {
-    //checked ? setMode(["dark", "white"]) : setMode(["ligth", "black"])
+    config.style.value[0] === 'dark' ? setChecked(true) : setChecked(false)
+
+    cookies.get('style') === 'dark' ? setChecked(true) : setChecked(false)
+    // eslint-disable-next-line
   }, [])
 
   return (
     <>
-      <button className='border-0 bg-transparent position-absolute end-0 m-1'>
-        <IconContext.Provider value={{ size: "1.5em" }}>
-            <GrConfigure onClick={() => setShow(true)} className={mode[0]} />
+      <button className='border-0 bg-transparent position-absolute end-0 m-1' style={{height: '-webkit-fill-available'}}>
+        <IconContext.Provider value={{ size: "1.6em" }} >
+            <BsGear onClick={() => setShow(true)} />
         </IconContext.Provider>
       </button>
 
-      <Offcanvas show={show} onHide={() => setShow(false)} placement="end">
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Configuraciones</Offcanvas.Title>
+      <Offcanvas show={show} onHide={() => setShow(false)} placement="end" className={config.style.value[0]}>
+        <Offcanvas.Header closeButton closeVariant={checked ? 'white' : null}>
+          <Offcanvas.Title>{config.text.nav.configTitle}</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-            <Form.Select aria-label="Default select example" id="lenguage">
-                <option>Lenguage</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <Form.Select 
+              value={config.lang.value} 
+              onChange={(e) => config.lang.set(e.target.value)}
+              style={{ cursor: 'pointer' }}
+            >
+                <option value="es">Español</option>
+                <option value="en">English</option>
             </Form.Select>
 
-            <Form.Select aria-label="Default select example" id="fontSize" className="mt-2">
-                <option>Font Size</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <Form.Select
+              className="mt-2"
+              style={{ cursor: 'pointer' }}
+              disabled
+            >
+                <option value="18">{config.text.nav.fs}</option>
+                <option value="sm">Chica</option>
+                <option value="md">Mediana</option>
+                <option value="lg">Grande</option>
             </Form.Select>
 
             <div className="mt-2 d-flex justify-content-end">
-              <IconContext.Provider value={{ size: "1.5em" }}>
-                <BsSun className="m-1" />
+              <IconContext.Provider value={{ size: "2.2em" }}>
+                <BsSun 
+                  className={"m-1"}
+                  onClick={() => changeStyle(false) } 
+                />
               </IconContext.Provider>
               <Form.Check 
                 reverse
                 type="switch"
-                className="my-1 d-flex justify-content-center"
+                className="my-1 d-flex justify-content-center fs-5"
                 checked={checked}
-                onChange={(e) => {
-                  setChecked(!checked)
-                  !checked ? setMode(["dark", "white"]) : setMode(["ligth", "black"])
-                }}
+                onChange={changeStyle}
               />
-              <IconContext.Provider value={{ size: "1.4em" }}>
-                <BsMoon className="m-1" />
+              <IconContext.Provider value={{ size: "2em" }}>
+                <BsMoon 
+                  className={"m-1" }
+                  onClick={() => changeStyle(true) }
+                />
               </IconContext.Provider>
             </div>
 

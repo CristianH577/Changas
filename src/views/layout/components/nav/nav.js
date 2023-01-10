@@ -1,85 +1,64 @@
 import { Link } from "react-router-dom";
 
 import { IconContext } from "react-icons";
-import { FaHome } from 'react-icons/fa';
-import { GrLogin, GrUserAdd, GrSearch, GrLogout, GrUser } from 'react-icons/gr';
+import { GrSearch } from 'react-icons/gr';
+import { AiOutlineHome } from "react-icons/ai";
 
-import './nav.css';
 import Config from "./components/config";
 
 import Cookies from 'universal-cookie';
 
 import Navbar from 'react-bootstrap/Navbar';
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { configContext } from '../../../../context/config_context'
+import NavUserOn from "./components/nav_user_ on";
+import NavUserOff from "./components/nav_user_ off";
 
-function Nav({user, setUser, search, setSearch}) {
+function Nav() {
+  const config = useContext(configContext)
+  const style = config.style.value
+
   const cookies = new Cookies()
   const [searchText, setSearchText] = useState("")
-  const [mode, setMode] = useState(["ligth", "black"])
 
   const logout = () => {
-    setUser(false)
+    config.user.set(false)
     cookies.remove('user', { path: '/' })
   }
 
-  const handleSubmit = () => {
-    //if(searchText === "") setSearch("") 
-    //if(searchText !== "") setSearch("?search=" + searchText)
-    setSearch(searchText)
-  }
-
-  const navUserOFF = 
-  <>
-    <Link to="/signup" className="m-1">
-      <IconContext.Provider value={{ size: "1.5em" }} >
-        <GrUserAdd className={mode[0]} />
-      </IconContext.Provider>
-    </Link>
-    <Link to="/login" className="m-1">
-      <IconContext.Provider value={{ size: "1.5em"}} >
-        <GrLogin className={mode[0]} />
-      </IconContext.Provider>
-    </Link>
-  </>
-  const navUserON = 
-  <>
-    <Link to="/myaccount" className="m-1">
-      <IconContext.Provider value={{ size: "1.5em" }}>
-        <GrUser className={mode[0]} />
-      </IconContext.Provider>
-    </Link>
-    <Link to="/login" className="m-1" onClick={() => logout()}>
-      <IconContext.Provider value={{ size: "1.5em" }}>
-        <GrLogout className={mode[0]} />
-      </IconContext.Provider>
-    </Link>
-  </>
-
   return (  
-    <Navbar bg={mode[0]}>
+    <Navbar className={"bg-gradient border-bottom element " + style[0]}>
       <div className="d-flex justify-content-center position-relative w-100">
-        <div className="d-flex">
+        <div className="center">
           <Link to="/" className="m-1">
-            <IconContext.Provider value={{ size:"1.5em", color: mode[1] }}>
-              <FaHome />
+            <IconContext.Provider value={{ size:"1.8em", color:'var()--color-3' }}>
+              <AiOutlineHome />
             </IconContext.Provider>
           </Link>
           <div className="form-control me-2 d-flex" >
-            <input className="border-0 outline-0 d-flex w-100" type="search" name="search" placeholder="Buscar trabajo" aria-label="Search" onChange={(e) => setSearchText(e.target.value)} />
-            <Link to={"/search" + (searchText === "" ? "" : ("?search=" + searchText))} className="d-flex align-items-center mx-1">
-              <IconContext.Provider value={{ size: "1.2em" }}>
-                <GrSearch onClick={handleSubmit} />
+            <input 
+              className="border-0 d-flex w-100"
+              style={{ outline: 'none' }}
+              type="search" 
+              name="search" 
+              placeholder={config.text.nav.searchPh} 
+              onChange={(e) => setSearchText(e.target.value)} 
+            />
+
+            <Link to={"/search" + (searchText === "" ? "" : ("?search=" + searchText))} className="d-flex align-items-center mx-1 light bg-transparent">
+              <IconContext.Provider value={{ size: "1.2em" }} className='' >
+                <GrSearch style={{}} />
               </IconContext.Provider>
             </Link>
           </div>
 
-          { user ? navUserON : navUserOFF }
+          { config.user.value 
+            ? <NavUserOn style={style} logout={logout} /> 
+            : <NavUserOff style={style} />
+          }
         </div>
     
-        <Config 
-          mode={mode}
-          setMode={setMode} 
-        />
+        <Config />
       </div>
     </Navbar>
   );

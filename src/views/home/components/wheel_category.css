@@ -1,0 +1,26 @@
+
+
+.wheel-inner{
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.wheel-btn{
+    z-index: 100;
+}
+.wheel-btn svg:hover{
+    transform: scale(1.2);
+}
+
+.wheel-item{
+    transition: .3s linear;
+}
+
+.light .wheel-item svg:hover{
+    fill: var(--color-hover-light);
+    transform: scale(1.2);
+}
+.dark .wheel-item svg:hover{
+    fill: var(--color-hover-dark);
+    transform: scale(1.2);
+}

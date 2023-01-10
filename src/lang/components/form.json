@@ -1,0 +1,40 @@
+{
+    "es":{
+        "label_email": "Correo electronico",
+        "label_cognonem": "Nombre",
+        "label_surname": "Apellido",
+        "label_pass": "Contraseña",
+        "label_new_pass": "Nueva contraseña",
+        "pass": "Contraseña",
+        "pass_conf": "Confirmar contraseña",
+        "label_phone": "Telefono",
+        "prefix": "Prefijo",
+        "number": "Numero",
+        "label_pi": "Imagen de perfil",
+        "alt_pi": "Imagen de perfil",
+        "label_location": "Localidad",
+        "label_dpt": "Departamento",
+        "label_ngb": "Municipalidad",
+        "label_occ": "Occupacion/es",
+        "label_exp": "Experiencia"
+    },
+    "en":{
+        "label_email": "E-mail",
+        "label_cognonem": "Name",
+        "label_surname": "Surname",
+        "label_pass": "Password",
+        "label_new_pass": "New password",
+        "pass": "Password",
+        "pass_conf": "Confirm password",
+        "label_phone": "Phone",
+        "prefix": "Prefix",
+        "number": "Number",
+        "label_pi": "Profile image",
+        "alt_pi": "Profile image",
+        "label_location": "Location",
+        "label_dpt": "Department",
+        "label_ngb": "Neighborhood",
+        "label_occ": "Occupation/s",
+        "label_exp": "Experience"
+    }
+}

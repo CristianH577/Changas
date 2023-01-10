@@ -1,30 +1,41 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import CardSearch from "./components/card_search";
+import { useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
+import ModalError from "../../components/modal_error";
+import { configContext } from "../../context/config_context";
 import Filters from "./components/filters";
+import CardSearchJob from "./components/card_search_job";
+import CardSearchWork from "./components/card_search_work";
+import CardSearchPlaceholder from "./components/card_search_placeholder";
 
-function Search({search}) {
+function Search() {
+  const config = useContext(configContext)
+  const style = config.style.value
+  const lang = config.lang.value
+
   const [searchData] = useState({
     search: "",
-    orderBy: "",
+    order: "",
     want: "",
-    acc_type: "work",
     occ: "",
     exp: "",
     department: "",
-    ngb: "",
-    category_users: 0,
-    category_jobs: 2
+    ngb: ""
   })
 
+  const query = new URLSearchParams(useLocation().search)
   useEffect(() => {
-    searchData.search = search
+    const x = query.get('search')
+    x !== null ? searchData.search = x : searchData.search = ""
 
     doSearch()
-  }, [search])
+    // eslint-disable-next-line
+  }, [query.get('search')])
 
-  const handleFilters = (e) => {
-    searchData[e.target.name] = e.target.value
+  const handleFilters = (name, value) => {
+    if(name === 'department') searchData.ngb = ''
+
+    searchData[name] = value
     doSearch()
   }
 
@@ -38,36 +49,76 @@ function Search({search}) {
 
     await axios.post('http://localhost:50/ChangasAPI/search/search', formData)
     .then( answer => {
-      console.log(answer)
-      // setData(answer.data)
+      setTimeout(() => {
+        setData(answer.data)
+      }, 1000);
     })
     .catch( error => {
+      setError([true, error.message])
       console.log(error)
     })
   }
 
+  /* COMPONENTS */
+  const articles = data.map((item, idx) =>
+    <article key={idx} className={'mb-2 p-1 col-sm-6 col-md-6 col-lg-6 col-xxl-4'}>
+      {item.id_job
+        ? <CardSearchJob 
+            data={item} 
+            bg={style[0]} 
+            border={style[1]} 
+            style={style} 
+          />
+        : <CardSearchWork 
+            data={item} 
+            bg={style[0]} 
+            border={style[1]} 
+            style={style} 
+          />
+      }
+    </article>
+  )
+
+  const articlesPlaceholder = [0,0,0,0,0].map((item,idx) => 
+    <article key={idx} className={'mb-2 p-1 col-sm-6 col-md-6 col-lg-6 col-xxl-4'}>
+      <CardSearchPlaceholder 
+        bg={style[0]} 
+        border={style[1]} 
+        style={style} 
+      />
+    </article>
+  )
+  /* */
+
+  /* ERROR */
+  const [error, setError] = useState([false, ''])
+  /* */
+
   return (
-    <div className="w-100 row">
-      <aside className="mb-1 col-lg-3">
+    <div className={"mb-3 w-100 row " + style[0]}>
+      <aside className={"p-0 col-md-4 col-lg-2 col-xxl-2"}>
         <Filters
           onChange={handleFilters}
-          onChangeDpt={() => searchData.ngb = ""}
+          lang={lang}
+          style={style}
         />
       </aside>
 
-      <section className="col-lg-9">
+      <section className="col-md-8 col-lg-10 col-xxl-10 bg-opacity-50">
         <div className="row">
-          {
-            data.map((item, idx) =>
-              <CardSearch 
-                key={idx}
-                data={item}
-                className={"col-sm-6 col-lg-12"}
-              />
-            )
+          { data.length === 0 
+            ? articlesPlaceholder 
+            : articles
           }
         </div>
       </section>
+
+      <ModalError  
+        style={style}
+        show={error[0]}
+        msj={error[1]}
+        onHide={() => setError([false, ''])}
+      />
     </div>
   );
 }

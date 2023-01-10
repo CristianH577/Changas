@@ -1,0 +1,25 @@
+.section{
+    transition: .5s linear;
+}
+
+.active{
+    opacity: 1;
+    max-height: 3000px;
+    transition: max-height 0.25s ease-in;
+}
+
+.inactive{
+    opacity: 0;
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.inactive legend, .inactive > div{
+    display: none;
+}
+
+fieldset{
+    font-weight: bold;
+}

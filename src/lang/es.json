@@ -1,0 +1,51 @@
+{
+    "nopage": {
+        "title": "Pagina no encontrada"
+    },
+
+    "nav": {
+        "searchPh": "Buscar...",
+        "configTitle": "Configuraciones",
+        "fs": "Tamaño de fuente"
+    },
+
+    "footer": {
+        "home": "Inicio",
+        "contact": "Contacto",
+        "legals": "Legales",
+        "faqs": "FAQs",
+        "about": "Acerca De"
+    },
+
+    "search": {
+        "title": "Busqueda"
+    },
+
+    "signup": {
+        "title": "Registro",
+
+        "want": "Busco",
+        "want1": "Trabajar",
+        "want2": "Emplear",
+        "emailPh": "ejemplo@dominio.com",
+        "password": "Contraseña",
+        "profileImg": "Imgagen de perfil",
+
+        "name": "Nombre",
+        "surname": "Apellido",
+        "location": "Locallidad",
+        "dpt": "Departamento",
+        "ngb": "Municipalidad",
+        "phone": "Telefono",
+
+        "occs": "Oficios",
+        "occ": "Oficio",
+        "exp": "Experiencia",
+        "suboccs": "Sub-oficios",
+        "worksOf": "Trabajos de",
+        "works": "Trabajos",
+        "price": "Precio",
+        "desc": "Descripcion",
+        "category": "Categoria"
+    }
+}

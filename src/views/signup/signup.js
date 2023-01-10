@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { useState, useContext } from "react";
+import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { RiMailSendLine } from "react-icons/ri";
@@ -8,34 +8,62 @@ import Experience from "./components/experience/experience";
 import Needed from "./components/needed";
 import Personal from "./components/personal";
 import Progress from "./components/progress";
-import axios from 'axios';
+// import axios from 'axios';
+import { configContext } from "../../context/config_context";
+import './signup.css'
+import ModalError from "../../components/modal_error";
+
 // import FakeEntry from "./components/fake_entry";
 
 function Signup() {
-  const [view, setView] = useState([true, false, false])
-  const [progress, setProgress] = useState(0)
+  const config = useContext(configContext)
+  const style = config.style.value
 
-  const showAcc = () => {
-    setProgress(0)
-    setView([true, false, false, false])
-  };
-  const showPersonal = () => {
-    setProgress(50)
-    setView([false, true, false, false])
-  };
-  const showJob = () => {
-    setProgress(100)
-    setView([false, false, true])
-  };
+  /* VIEW */
+  // eslint-disable-next-line
+  const [modal, setModal] = useState([false])
+  const [error, setError] = useState([false, ''])
+  const [progress, setProgress] = useState(0)
+  
+  const [active, setActive] = useState('acc')
+  const next = () => {
+    switch (active) {
+      case 'acc':
+        setProgress(50)
+        setActive('personal')
+        break;
+      case 'personal':
+        setProgress(100)
+        data.accType === 'work' && setActive('exp')
+        data.accType === 'employ' && setActive('need')
+        break;
+    
+      default:
+        break;
+    }
+  }
   const prev = () => {
-    if(view[2]){
-      showPersonal()
-    }else if(view[1]){
-      showAcc()
+    switch (active) {
+      case 'personal':
+        setProgress(0)
+        setActive('acc')
+        break;
+      case 'exp':
+        setProgress(50)
+        setActive('personal')
+        break;
+      case 'need':
+        setProgress(50)
+        setActive('personal')
+      break;
+    
+      default:
+        break;
     }
   }
 
-  /* */
+
+  /* DATA */
   const [data, setData] = useState({
     accType: "",
     email: "",
@@ -84,59 +112,67 @@ function Signup() {
     occ: "", 
     exp: ""
   }])
-  const [jobs, setJobs] = useState([])
-  const [validation, setValidation] = useState(false)
-
-  /* send */
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-
-    const form = e.currentTarget
-
-    if (form.checkValidity() === false) {
-      setValidation(true)
+  const [jobs, setJobs] = useState([
+    {
+      id: 'first',
+      occ: "",
+      category: 2,
+      name: "",
+      price: "",
+      description: "", 
+      imgs: []
     }
-    else{
-      setValidation(false)
-      
-      if(view[0] === true){
-        if(validations.email === false) if(confirmPassword()) showPersonal()
-      }
-      else if(view[1] === true){
-        showJob()
-      }
-      else{
-        if(formatData()){
-          console.log(data)
-          console.log("enviar")
-          submitForm()
-        }
-        else{
-          console.log("Error: enviar")
-        }
-      }
-    }
-  }
-
+  ])
   const [validations, setValidations] = useState({
+    form: false,
     email: null,
     passC: null
   })
 
-  const confirmPassword = () => {
-    var bool = false
-    if(data.password === data.passwordC){
-      bool = true
-    }
+  /* VALIDATIONS */
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+// eslint-disable-next-line
+    const form = e.currentTarget
 
-    setValidations({
-      ...validations,
-      passC: !bool
-    })
-    return bool
+    next()
+    console.log(validations)
+    // if (form.checkValidity() === false) {
+    //   setValidations({
+    //     ...validations,
+    //     form: true
+    //   })
+    // }
+    // else{
+    //   setValidations({
+    //     ...validations,
+    //     form: false
+    //   })
+      
+    //   if(active === 'acc'){  
+    //     if(validations.email === false && validations.passC === false){
+    //       next()
+    //     }
+    //   }modal
+    //   else if(active === 'personal'){
+    //     next()
+    //   }
+    //   else{
+    //     if(formatData()){
+    //       setModal([true])
+    //       console.log(data)
+    //       submitForm()
+    //     }
+    //     else{
+    //       setError([false, 'No se pudo enviar la solicitud.'])
+    //     }
+    //   }
+    // }
   }
 
+  /* SEND */
+// eslint-disable-next-line
   const formatData = () => {
     if(data.accType === 'work'){
       const newJobs = jobs.filter(job => job.category !== 2)
@@ -159,6 +195,7 @@ function Signup() {
     return false
   }
 
+// eslint-disable-next-line
   const submitForm = async() => {
     const formData = new FormData()
 
@@ -194,10 +231,10 @@ function Signup() {
           }
           break;
 
-        case 'email':
-          addValue = item[1] + Math.floor(Math.random() * 100000000000)
-          formData.append(item[0], addValue)
-          break;
+        // case 'email':
+        //   addValue = item[1] + Math.floor(Math.random() * 100000000000)
+        //   formData.append(item[0], addValue)
+        //   break;
       
         default:
           formData.append(item[0], item[1])
@@ -205,38 +242,56 @@ function Signup() {
       }
     })
 
-    await axios.post('http://localhost:50/ChangasAPI/signup/registerUser', formData)
-    .then(answer => {
-      console.log(answer)
-      })
-    .catch(error => console.log(error))
+    // await axios.post('http://localhost:50/ChangasAPI/signup/registerUser', formData)
+    // .then(answer => {
+    //   console.log(answer)
+    //   if(answer.data === 'Usuario registrado') {
+    //     window.location.replace('http://localhost:3000/login')
+    //   }
+    //   else{
+    //     setError([true, 'No se pudo procesar la solicitud.'])
+    //   }
+    // })
+    // .catch(error => console.log(error))
   }
 
+  /* STYLE */
+  const styleFieldset = 'mb-3 p-2 border border-4 rounded bg-gradient element ' + style[0] + ' '
+  const styleLegend = 'py-1 px-2 text-center rounded bg-gradient element ' + style[0] + ' '
 
   return (
-    <Form noValidate validated={validation} onSubmit={handleSubmit} method="POST">
-      <h1 className="text-center">Signup</h1>
+    <>
+    <h1 className={"text-center mt-3"}>{config.text.signup.title}</h1>
 
-      <Progress 
-        progress={progress}
-      />
+    <Progress 
+      progress={progress}
+      style={style}
+    />
 
-      <Account 
-        show={view[0]}
-        updateData={updateData}
-        validations={validations}
-        setValidations={setValidations}
-      />
+    <Form noValidate validated={validations.form} onSubmit={handleSubmit} method="POST" className='mb-3 px-3 d-flex flex-column justify-content-between'>
 
-      <Personal 
-        show={view[1]}
-        updateData={updateData}
-      />
+      <article className=''>
+        <Account 
+          updateData={updateData}
+          validations={validations}
+          setValidations={setValidations}
+          disabled={active !== 'acc'}
+          class={styleFieldset + (active === 'acc' ? 'active' : 'inactive')}
+          styleLegend={styleLegend}
+        />
 
-      {
-        data.accType === "work" && 
+        <Personal 
+          updateData={updateData}
+          disabled={active !== 'personal'}
+          class={styleFieldset + (active === 'personal' ? 'active' : 'inactive')}
+          styleLegend={styleLegend}
+        />
+
         <Experience 
-          show={view[2]}
+          disabled={active !== 'exp'}
+          class={styleFieldset + (active === 'exp' ? 'active' : 'inactive')}
+          styleLegend={styleLegend}
+          styleFieldset={styleFieldset}
 
           occs={occs}
           setOccs={setOccs}
@@ -246,41 +301,50 @@ function Signup() {
 
           updateData={updateData}
         />
-      }
-
-      {
-        data.accType === "employ" && 
+        
         <Needed 
-          show={view[2]}
+          disabled={active !== 'need'}
+          class={styleFieldset + (active === 'need' ? 'active' : 'inactive')}
+          styleLegend={styleLegend}
 
           jobs={jobs}
           setJobs={setJobs}
         />
-      }
+      </article>
 
-      <div className="d-flex justify-content-end">
-        {
-          !view[0] && 
-          <Button variant="secondary" type="button" className="m-1" onClick={() => prev()}>
+      <article className="console d-flex justify-content-end">
+        { active !== 'acc' &&
+          <Button variant="secondary" type="button" className="m-1" onClick={prev}>
             <IconContext.Provider value={{ size: "1.5em" }}>
               <AiOutlineArrowLeft />
             </IconContext.Provider>
           </Button>
         }
-        <Button variant="primary" type="submit" className="m-1">
+        <Button variant="primary" type="submit" className={"m-1 btn-purple"}>
           <IconContext.Provider value={{ size: "1.5em" }}>
-            {
-              (view[2]) ? <RiMailSendLine /> : <AiOutlineArrowRight />
+            { (active === 'exp' || active === 'need') ? <RiMailSendLine /> : <AiOutlineArrowRight />
             }
           </IconContext.Provider>
         </Button>
-      </div>
+      </article>
 
       {/* <FakeEntry /> */}
-
     </Form>
+
+    <Modal show={modal[0]} animation={false} centered contentClassName='bg-transparent border-0'>
+      <div className='center mb-5'>
+        <Spinner animation="border" variant="info" />
+      </div>
+    </Modal>
+
+    <ModalError
+      style={style}
+      show={error[0]} 
+      msj={error[1]}
+      onHide={() => setError([false, ''])}
+    />
+    </>
   );
 }
   
 export default Signup;
-  

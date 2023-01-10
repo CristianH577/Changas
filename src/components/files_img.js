@@ -1,23 +1,20 @@
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import { AiOutlineClear } from "react-icons/ai";
-import { BsFullscreen, BsFullscreenExit } from "react-icons/bs";
-import { useRef } from 'react';
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Previews from './previews'
 import './files_img.css'
 
 function FilesImg(props) {
-     const [imgs, setImgs] = useState([]);
+     const [imgs, setImgs] = useState([])
 
-     // eslint-disable-next-line
-     // const [x, setX] = useState([])
-     // const updateView = () => {
-     // setX([])
-     // }
+     // props.default && setImgs(props.default)
+     useEffect(() => {
+          props.default && setImgs(props.default)
+     }, [])
 
      const updatePreviews = (e) => {
-          var array = e.target.files;
+          var array = e.target.files
 
           if (array.length <= props.max) {
                var newImgs = []
@@ -60,9 +57,8 @@ function FilesImg(props) {
        //console.log(inputFilesRef.current.files)
      //}
 
-     /* modal */
+     /* MODAL */
      const [show, setShow] = useState(false);
-     const [full, setFull] = useState(false);
      const [showTo, setShowTo] = useState();
 
      const changeShowTo = img => {
@@ -71,7 +67,7 @@ function FilesImg(props) {
      }
 
      return(
-          <div className="mb-3">
+          <div>
                { props.label && <Form.Label>{props.label}</Form.Label> }
                <InputGroup>
                     <Form.Control 
@@ -80,7 +76,6 @@ function FilesImg(props) {
                          onChange={updatePreviews} 
                          onEmptied={updatePreviews}
                          ref={inputFilesRef} 
-                         aria-label={props.ariaLabel} 
                          name={props.name} 
                          data-type="imgs"
                     />
@@ -94,24 +89,14 @@ function FilesImg(props) {
                </InputGroup>
 
                <Previews 
+                    directory = {props.directory}
                     imgs={imgs} 
                     //deleteImg={deleteImg}
                     changeShowTo={changeShowTo}
                />
                
-               <Modal centered show={show} size="xl" fullscreen={full}
-                    onHide={() => {
-                         setShow(!show)
-                         setFull(false)
-                    }}>
-                    <img src={showTo} alt="" />
-                    
-                    <Button variant="info" type="button" className="position-absolute end-0 bottom-0 m-1" 
-                    onClick={() => setFull(!full)}>
-                         <IconContext.Provider value={{ size: "1.5em" }}>
-                              {full ? <BsFullscreenExit /> : <BsFullscreen />}
-                         </IconContext.Provider>
-                    </Button>
+               <Modal centered show={show} size="xl" onHide={() => setShow(!show) }>
+                    <img src={showTo} alt="" className='rounded' />
                </Modal>
           </div>
      );

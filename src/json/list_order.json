@@ -1,0 +1,32 @@
+{
+    "values": [
+        "",
+        "oldest",
+        "occ",
+        "exp",
+        "department",
+        "ngb"
+    ],
+    "es": {
+        "title": "Orden",
+        "names": [
+            "Mas recientes",
+            "Mas antiguos",
+            "Oficio",
+            "Experiencia",
+            "Departamento",
+            "Municipalidad"
+        ]
+    },
+    "en": {
+        "title": "Order",
+        "names": [
+            "Latest",
+            "Oldest",
+            "Occupation",
+            "Experience",
+            "Department",
+            "Ngb"
+        ]
+    }
+}

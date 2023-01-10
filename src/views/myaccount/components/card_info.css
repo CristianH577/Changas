@@ -1,0 +1,22 @@
+.input-disabled label{
+    display: flex;
+}
+.input-disabled label div{
+    display: block !important;
+}
+.input-disabled .form-control{
+    display: none;
+}
+
+/* .input-disabled{
+    background-color: transparent !important;
+    border: none;
+    background-image: none;
+}
+
+.light .input-disabled::placeholder{
+    color: rgba(var(--bs-dark-rgb),var(--bs-text-opacity)) !important;
+}
+.dark .input-disabled::placeholder{
+    color: rgba(var(--bs-light-rgb),var(--bs-text-opacity));
+} */

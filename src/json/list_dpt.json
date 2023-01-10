@@ -1,0 +1,68 @@
+{
+    "values":[
+        "",
+        "Burruyacú",
+        "Chicligasta",
+        "Cruz Alta",
+        "Famaillá",
+        "Graneros",
+        "Juan Bautista Alberdi",
+        "La Cocha",
+        "Leales",
+        "Lules",
+        "Monteros",
+        "Río Chico",
+        "S.M. de Tucuman",
+        "Simoca",
+        "Tafí del Valle",
+        "Tafí Viejo",
+        "Trancas",
+        "Yerba Buena"
+    ],
+    "es":{
+        "title": "Departamento",
+        "names": [
+            "Todos",
+            "Burruyacú",
+            "Chicligasta",
+            "Cruz Alta",
+            "Famaillá",
+            "Graneros",
+            "Juan Bautista Alberdi",
+            "La Cocha",
+            "Leales",
+            "Lules",
+            "Monteros",
+            "Río Chico",
+            "S.M. de Tucuman",
+            "Simoca",
+            "Tafí del Valle",
+            "Tafí Viejo",
+            "Trancas",
+            "Yerba Buena"
+        ]
+    },
+    "en":{
+        "title": "Department",
+        "names": [
+            "All",
+            "Burruyacú",
+            "Chicligasta",
+            "Cruz Alta",
+            "Famaillá",
+            "Graneros",
+            "Juan Bautista Alberdi",
+            "La Cocha",
+            "Leales",
+            "Lules",
+            "Monteros",
+            "Río Chico",
+            "S.M. de Tucuman",
+            "Simoca",
+            "Tafí del Valle",
+            "Tafí Viejo",
+            "Trancas",
+            "Yerba Buena"
+        ]
+    }
+}

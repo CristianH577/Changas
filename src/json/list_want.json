@@ -1,0 +1,23 @@
+{
+    "values": [
+        "",
+        "work",
+        "employ"
+    ],
+    "es": {
+        "title": "Busco",
+        "names": [
+            "Todo",
+            "Trabajar",
+            "Emplear"
+        ]
+    },
+    "en": {
+        "title": "Want",
+        "names": [
+            "All",
+            "Work",
+            "Employ"
+        ]
+    }
+}

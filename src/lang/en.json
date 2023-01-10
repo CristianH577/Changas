@@ -1,0 +1,29 @@
+{
+    "nopage": {
+        "title": "Page not found"
+    },
+
+    "nav": {
+        "configTitle": "Settings",
+        "fs": "Font size"
+    },
+
+    "footer": {
+        "home": "Home",
+        "features": "Features",
+        "legal": "Legal",
+        "about": "About"
+    },
+
+    "home": {
+        "title": "Home"
+    },
+
+    "search": {
+        "title": "Busqueda"
+    },
+
+    "signup": {
+        "title": "Registro"
+    }
+}

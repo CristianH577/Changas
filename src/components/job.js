@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
@@ -6,8 +6,12 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FilesImg from './files_img';
 
 import occsList from "../json/occsList.json";
+import { configContext } from '../context/config_context';
 
 function Job(props) {
+  const config = useContext(configContext)
+  // const style = config.style.value
+
   const options = occsList.map( (item) => <option key={item} value={item} >{item}</option> )
 
   const occ = useRef()
@@ -36,19 +40,19 @@ function Job(props) {
   }
     
   return(
-    <div className="mb-4">
-      <InputGroup className="mb-1">
+    <div className="p-2">
+      <InputGroup>
         {
           showOcc &&
           <Form.Select 
-            aria-label="Categoria" 
-            className="select-occ" 
+            className='' 
             data-type="occ" 
             onChange={onChange} 
             required
             ref={occ}
+            style={{borderEndStartRadius: 0}}
           >
-            <option value="">Categoria*</option>
+            <option value="">{config.text.signup.category}*</option>
             {options}
           </Form.Select>
         }
@@ -57,11 +61,11 @@ function Job(props) {
           showName &&
           <Form.Control 
             ref={name}
-            aria-label="Nombre del trabajo" 
-            placeholder="Nombre*"
+            placeholder={config.text.signup.name + "*"}
             data-type="name"
             onChange={onChange}
             required
+            style={{borderEndStartRadius: 0}}
           />
         }
 
@@ -69,13 +73,12 @@ function Job(props) {
         <Form.Control
           type="number"
           ref={price}
-          placeholder="Precio"
-          aria-label="Precio" 
+          placeholder={config.text.signup.price}
           data-type="price"
           onChange={onChange}
         />
 
-        <Button variant="danger" type="button" 
+        <Button variant="danger" type="button" style={{borderEndEndRadius: 0}}
         onClick={() => props.deleteJob(props.id)}>
           -
         </Button>
@@ -84,11 +87,10 @@ function Job(props) {
       <Form.Control 
         as="textarea"
         ref={description}
-        placeholder="Descripcion*"
+        placeholder={config.text.signup.desc + "*"}
         rows="3"
         style={{resize: "none"}}
-        aria-label="Descripcion"
-        className="mb-1"
+        className='rounded-0 rounded-bottom mb-2'
         data-type="description"
         onChange={(e) => props.updateJob(props.id, e)}
         required
@@ -98,7 +100,6 @@ function Job(props) {
         showImgs &&
         <FilesImg 
           onChange={onChange}
-          ariaLabel={"Imagenes de muestra"}
           max={3}
         />
       }

@@ -1,0 +1,29 @@
+{
+    "values": [
+        "",
+        "0",
+        "1",
+        "5",
+        "9"
+    ],
+    "es": {
+        "title": "Experiencia",
+        "names": [
+            "Todo",
+            "<1 año",
+            "+1 año",
+            "+5 años",
+            "+9 años"
+        ]
+    },
+    "en": {
+        "title": "Experience",
+        "names": [
+            "All",
+            "<1 year",
+            "+1 year",
+            "+5 years",
+            "+9 years"
+        ]
+    }
+}

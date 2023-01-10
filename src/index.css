@@ -1,3 +1,16 @@
+:root{
+  --color-bg-dark: #7109aa;
+  --color-bg-dark-element: #5f2580;
+  --color-text-dark: #ad66d5;
+  --color-hover-dark: #9f3ed5;
+
+
+  --color-bg-light: #ad66d5;
+  --color-bg-light-element: #9f3ed5;
+  --color-text-light: #48036f;
+  --color-hover-light: #7109aa;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -14,12 +27,16 @@
 }
 
 .center{
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
 }
 
 svg:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.hover-zoom:hover{
   transform: scale(1.1);
 }
 
@@ -27,9 +44,84 @@ form{
   max-width: 800px;
 }
 
-.ligth path{
-  stroke: black;
+
+/* LIGHT */
+.light{
+  color: black;
+  fill: black;
+  border-color: var(--color-text-light) !important;
+  background-color: var(--color-bg-light);
+}
+.light.element{
+  background-color: var(--color-bg-light-element);
+}
+
+.light svg{
+  color: black;
+}
+.light path{
+  stroke: black !important;
+}
+.light a{
+  color: black;
+}
+.light .btn-purple{
+  background-color: var(--color-bg-light-element) !important;
+  border: black;
+  color: black;
+}
+
+
+/* DARK */
+.dark{
+  color: white;
+  fill: white;
+  border-color: var(--color-text-dark) !important;
+  background-color: var(--color-bg-dark);
+}
+.dark.element{
+  background-color: var(--color-bg-dark-element);
+}
+
+.dark svg{
+  color: white;
 }
 .dark path{
   stroke: white;
+}
+.dark > h1{
+  color: white;
+}
+.dark .btn-purple{
+  background-color: var(--color-bg-dark-element) !important;
+  border-color: white;
+  color: white;
+}
+
+
+@media screen and (min-width: 768px) {
+  .rounded-md {
+    border-radius: var(--bs-border-radius)!important;
+  }
+  .ps-md-0{
+    padding-left: 0 !important;
+  }
+  .w-md-75{
+    width: 75% !important;
+  }
+  .w-md-auto{
+    width: auto !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .w-lg-auto{
+    width: auto !important;
+  }
+  .w-lg-50{
+    width: 50% !important;
+  }
+  .rounded-lg {
+    border-radius: var(--bs-border-radius)!important;
+  }
 }

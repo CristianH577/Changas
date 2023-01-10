@@ -1,0 +1,20 @@
+{
+    "es":{
+        "title_page": "Bienvenido a ChangasTuc!",
+
+        "title_card1": "Enseña",
+        "text_card1": "Escoge las mejores habilidades que te definen, define los trabajos que eres capaz de realizar y muestra algunos de tus mejores logros.",
+
+        "title_card2": "Busca",
+        "text_card2": "Navega entre las distintas solicitudes de empleo y si crees que eres capaz de realizarla ponten en contacto con el solicitante.",
+
+        "title_card3": "Solicita",
+        "text_card3": "Escoge una categoria, agrega una rapida descripcion y unas fotos del trabajo que necesesita realizarse y espera para escoger entre los distintos solicitantes.",
+
+        "title_card4": "Encuentra",
+        "text_card4": "Con una simple busqueda puedes conocer los distintos perfiles de trabajadores y contactar con el que mejor se ajuste al trabajo que necesitas que realice."
+    },
+    "en":{
+
+    }
+}

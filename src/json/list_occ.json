@@ -1,0 +1,47 @@
+{
+    "values": [
+        "",
+        "Albañil",
+        "Carpintero",
+        "Niñera",
+        "Jardinero",
+        "Herrero",
+        "Costurero",
+        "Cadete",
+        "Cocinero",
+        "Masajista",
+        "Artesano"
+    ],
+    "es": {
+        "title": "Ocupacion",
+        "names": [
+            "Todos",
+            "Albañil",
+            "Carpintero",
+            "Niñera",
+            "Jardinero",
+            "Herrero",
+            "Costurero",
+            "Cadete",
+            "Cocinero",
+            "Masajista",
+            "Artesano"
+        ]
+    },
+    "en": {
+        "title": "Occupation",
+        "names": [
+            "All",
+            "Albañil",
+            "Carpintero",
+            "Niñera",
+            "Jardinero",
+            "Herrero",
+            "Costurero",
+            "Cadete",
+            "Cocinero",
+            "Masajista",
+            "Artesano"
+        ]
+    }
+}
